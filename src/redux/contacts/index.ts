@@ -1,3 +1,3 @@
 export * from './actions'
-export * from './contactsReducer'
+export * from './reducer'
 export * from './selectFilteredContacts'

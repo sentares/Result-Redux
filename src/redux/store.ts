@@ -3,6 +3,7 @@ import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import thunkMiddleware from 'redux-thunk'
 import { contactsReducer } from './contacts'
+import { favoriteContactsReducer } from './favotire'
 import { groupsReducer } from './groups'
 import { logActionMiddleware } from './logActionMiddleware'
 
@@ -11,6 +12,7 @@ const rootReducer = persistReducer(
 	combineReducers({
 		contacts: contactsReducer,
 		groups: groupsReducer,
+		favoriteContacts: favoriteContactsReducer,
 	})
 )
 

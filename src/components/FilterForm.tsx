@@ -1,5 +1,4 @@
 import { Formik } from 'formik'
-import { FormikConfig } from 'formik/dist/types'
 import { memo, useEffect } from 'react'
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
 import { fetchGroups } from 'src/redux/groups'
@@ -17,12 +16,12 @@ interface FilterFormProps {
 export const FilterForm = memo<FilterFormProps>(({ onSubmit }) => {
 	const dispatch = useAppDispatch()
 
-	const { data } = useAppSelector(state => state.groups)
+	const { groupsList } = useAppSelector(state => state.groups)
 	const { filter } = useAppSelector(state => state.contacts)
 
 	useEffect(() => {
 		dispatch(fetchGroups())
-	}, [])
+	}, [dispatch])
 
 	return (
 		<Formik initialValues={filter} onSubmit={onSubmit}>
@@ -48,7 +47,7 @@ export const FilterForm = memo<FilterFormProps>(({ onSubmit }) => {
 								onChange={handleChange}
 							>
 								<option value=''>Open this select menu</option>
-								{data.map(groupContacts => (
+								{groupsList.map(groupContacts => (
 									<option value={groupContacts.id} key={groupContacts.id}>
 										{groupContacts.name}
 									</option>

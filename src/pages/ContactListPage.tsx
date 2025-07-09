@@ -18,8 +18,10 @@ export const ContactListPage = memo(() => {
 	}
 
 	useEffect(() => {
-		dispatch(fetchContacts())
-	}, [])
+		if (filteredContacts.length === 0) {
+			dispatch(fetchContacts())
+		}
+	}, [dispatch])
 
 	return (
 		<Row xxl={1}>

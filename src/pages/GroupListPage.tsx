@@ -1,16 +1,27 @@
-import React, {memo} from 'react';
-import {CommonPageProps} from './types';
-import {Col, Row} from 'react-bootstrap';
-import {GroupContactsCard} from 'src/components/GroupContactsCard';
+import { memo, useEffect } from 'react'
+import { Col, Row } from 'react-bootstrap'
+import { GroupContactsCard } from 'src/components/GroupContactsCard'
+import { fetchGroups } from 'src/redux/groups'
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks'
 
-export const GroupListPage = memo<CommonPageProps>(({contactsState, groupContactsState}) => {
-  return (
-    <Row xxl={4}>
-      {groupContactsState[0].map((groupContacts) => (
-        <Col key={groupContacts.id}>
-          <GroupContactsCard groupContacts={groupContacts} withLink />
-        </Col>
-      ))}
-    </Row>
-  );
-});
+export const GroupListPage = memo(() => {
+	const dispatch = useAppDispatch()
+
+	const { groupsList } = useAppSelector(state => state.groups)
+
+	useEffect(() => {
+		if (groupsList.length === 0) {
+			dispatch(fetchGroups())
+		}
+	}, [dispatch])
+
+	return (
+		<Row xxl={4}>
+			{groupsList.map(groupContacts => (
+				<Col key={groupContacts.id}>
+					<GroupContactsCard groupContacts={groupContacts} withLink />
+				</Col>
+			))}
+		</Row>
+	)
+})

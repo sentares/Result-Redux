@@ -1,11 +1,9 @@
 import { Dispatch } from 'redux'
 import { ThunkAction } from 'redux-thunk'
+import { FilterFormValues } from 'src/components/FilterForm'
+import { MOCK_URL_CONTACTS } from 'src/constants/urls'
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { RootState } from '../store'
-import { FilterFormValues } from 'src/components/FilterForm'
-
-const MOCK_URL_CONTACTS =
-	'https://mocki.io/v1/8ca3a382-b4fc-43f3-9f1d-5b738a5674de'
 
 export const FETCH_CONTACTS_START = 'FETCH_CONTACTS_START'
 export const FETCH_CONTACTS_SUCCESS = 'FETCH_CONTACTS_SUCCESS'

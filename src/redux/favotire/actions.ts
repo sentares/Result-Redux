@@ -1,10 +1,8 @@
 import { Dispatch } from 'redux'
 import { ThunkAction } from 'redux-thunk'
+import { MOCK_URL_FAVORITE_CONTACTS } from 'src/constants/urls'
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { RootState } from '../store'
-
-const MOCK_URL_FAVORITE_CONTACTS =
-	'https://mocki.io/v1/0d69d9e7-8ef5-47ba-96fc-e23f812f41a2'
 
 export const FETCH_FAVORITE_CONTACTS_START = 'FETCH_FAVORITE_CONTACTS_START'
 export const FETCH_FAVORITE_CONTACTS_SUCCESS = 'FETCH_FAVORITE_CONTACTS_SUCCESS'

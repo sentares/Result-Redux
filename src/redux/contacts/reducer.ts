@@ -5,14 +5,10 @@ import { MOCK_URL_CONTACTS } from 'src/constants/urls'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
 interface ContactsState {
-	loading: boolean
-	error: string | null
 	filter: FilterFormValues
 }
 
 const initialState: ContactsState = {
-	loading: false,
-	error: null,
 	filter: {
 		name: '',
 		groupId: '',

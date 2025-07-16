@@ -5,11 +5,11 @@ import { ContactCard } from 'src/components/ContactCard'
 import { Empty } from 'src/components/Empty'
 import { GroupContactsCard } from 'src/components/GroupContactsCard'
 import { useGetContactsQuery } from 'src/redux/contacts'
-import { useAppSelector } from 'src/redux/hooks'
+import { useGetGroupsQuery } from 'src/redux/groups'
 
 export const GroupPage = memo(() => {
 	const { groupId } = useParams<{ groupId: string }>()
-	const { groupsList } = useAppSelector(state => state.groups)
+	const { data: groupsList = [] } = useGetGroupsQuery()
 	const { data: contactsList = [] } = useGetContactsQuery()
 
 	const groupContacts = useMemo(

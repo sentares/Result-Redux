@@ -1,8 +1,8 @@
 import { Formik } from 'formik'
-import { memo, useEffect } from 'react'
+import { memo } from 'react'
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
-import { fetchGroups } from 'src/redux/groups'
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks'
+import { useGetGroupsQuery } from 'src/redux/groups'
+import { useAppSelector } from 'src/redux/hooks'
 
 export interface FilterFormValues {
 	name: string
@@ -14,14 +14,8 @@ interface FilterFormProps {
 }
 
 export const FilterForm = memo<FilterFormProps>(({ onSubmit }) => {
-	const dispatch = useAppDispatch()
-
-	const { groupsList } = useAppSelector(state => state.groups)
+	const { data: groupsList = [] } = useGetGroupsQuery()
 	const { filter } = useAppSelector(state => state.contacts)
-
-	useEffect(() => {
-		dispatch(fetchGroups())
-	}, [dispatch])
 
 	return (
 		<Formik initialValues={filter} onSubmit={onSubmit}>

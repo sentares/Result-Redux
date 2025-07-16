@@ -1,25 +1,47 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux'
-import { persistReducer, persistStore } from 'redux-persist'
+import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers } from 'redux'
+import {
+	FLUSH,
+	PAUSE,
+	PERSIST,
+	persistReducer,
+	persistStore,
+	PURGE,
+	REGISTER,
+	REHYDRATE,
+} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import thunkMiddleware from 'redux-thunk'
-import { contactsReducer } from './contacts'
-import { favoriteContactsReducer } from './favotire'
-import { groupsReducer } from './groups'
+import { contactsApiSlice, contactsSlice } from './contacts'
+import { favoriteContactsApiSlice } from './favotire'
+import { groupsApiSlice } from './groups'
 import { logActionMiddleware } from './logActionMiddleware'
 
 const rootReducer = persistReducer(
 	{ key: 'redux', storage: storage, throttle: 100000 },
 	combineReducers({
-		contacts: contactsReducer,
-		groups: groupsReducer,
-		favoriteContacts: favoriteContactsReducer,
+		contacts: contactsSlice.reducer,
+		[contactsApiSlice.reducerPath]: contactsApiSlice.reducer,
+		[groupsApiSlice.reducerPath]: groupsApiSlice.reducer,
+		[favoriteContactsApiSlice.reducerPath]: favoriteContactsApiSlice.reducer,
 	})
 )
 
-export const store = createStore(
-	rootReducer,
-	applyMiddleware(thunkMiddleware, logActionMiddleware)
-)
+export const store = configureStore({
+	reducer: rootReducer,
+	devTools: true,
+	middleware(getDefaultMiddleware) {
+		return getDefaultMiddleware({
+			serializableCheck: {
+				ignoredActions: [FLUSH, REGISTER, REHYDRATE, PAUSE, PERSIST, PURGE],
+			},
+		}).concat([
+			contactsApiSlice.middleware,
+			groupsApiSlice.middleware,
+			favoriteContactsApiSlice.middleware,
+			logActionMiddleware,
+		])
+	},
+})
 
 export const persistor = persistStore(store)
 

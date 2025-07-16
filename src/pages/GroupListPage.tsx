@@ -1,19 +1,10 @@
-import { memo, useEffect } from 'react'
+import { memo } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { GroupContactsCard } from 'src/components/GroupContactsCard'
-import { fetchGroups } from 'src/redux/groups'
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks'
+import { useGetGroupsQuery } from 'src/redux/groups'
 
 export const GroupListPage = memo(() => {
-	const dispatch = useAppDispatch()
-
-	const { groupsList } = useAppSelector(state => state.groups)
-
-	useEffect(() => {
-		if (groupsList.length === 0) {
-			dispatch(fetchGroups())
-		}
-	}, [dispatch])
+	const { data: groupsList = [] } = useGetGroupsQuery()
 
 	return (
 		<Row xxl={4}>

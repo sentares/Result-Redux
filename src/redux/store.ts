@@ -12,7 +12,7 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { contactsApiSlice, contactsSlice } from './contacts'
-import { favoriteContactsReducer } from './favotire'
+import { favoriteContactsApiSlice } from './favotire'
 import { groupsApiSlice } from './groups'
 import { logActionMiddleware } from './logActionMiddleware'
 
@@ -20,9 +20,9 @@ const rootReducer = persistReducer(
 	{ key: 'redux', storage: storage, throttle: 100000 },
 	combineReducers({
 		contacts: contactsSlice.reducer,
-		favoriteContacts: favoriteContactsReducer,
 		[contactsApiSlice.reducerPath]: contactsApiSlice.reducer,
 		[groupsApiSlice.reducerPath]: groupsApiSlice.reducer,
+		[favoriteContactsApiSlice.reducerPath]: favoriteContactsApiSlice.reducer,
 	})
 )
 
@@ -37,6 +37,7 @@ export const store = configureStore({
 		}).concat([
 			contactsApiSlice.middleware,
 			groupsApiSlice.middleware,
+			favoriteContactsApiSlice.middleware,
 			logActionMiddleware,
 		])
 	},

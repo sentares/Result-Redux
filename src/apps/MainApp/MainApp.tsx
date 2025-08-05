@@ -10,7 +10,7 @@ import {
 	GroupListPage,
 	GroupPage,
 } from 'src/pages'
-import { persistor, store } from 'src/redux/store'
+import { persistor, store } from 'src/store/store'
 import './MainApp.scss'
 
 export const MainApp = () => {

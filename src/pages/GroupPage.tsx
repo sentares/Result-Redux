@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom'
 import { ContactCard } from 'src/components/ContactCard'
 import { Empty } from 'src/components/Empty'
 import { GroupContactsCard } from 'src/components/GroupContactsCard'
-import { useGetContactsQuery } from 'src/redux/contacts'
-import { useGetGroupsQuery } from 'src/redux/groups'
+import { useGetContactsQuery } from 'src/store/contacts'
+import { useGetGroupsQuery } from 'src/store/groups'
 
 export const GroupPage = memo(() => {
 	const { groupId } = useParams<{ groupId: string }>()

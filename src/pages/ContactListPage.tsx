@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { ContactCard } from 'src/components/ContactCard'
 import { FilterForm, FilterFormValues } from 'src/components/FilterForm'
 import { useFilteredContacts } from 'src/helpers/hooks'
-import { setContactsFilter } from 'src/redux/contacts'
+import { setContactsFilter } from 'src/store/contacts'
 
 export const ContactListPage = memo(() => {
 	const dispatch = useDispatch()

@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { ContactCard } from 'src/components/ContactCard'
-import { useGetFavoriteContactsQuery } from 'src/redux/favotire'
+import { useGetFavoriteContactsQuery } from 'src/store/favotire'
 
 export const FavoritListPage = memo(() => {
 	const { data: favoriteContactList = [] } = useGetFavoriteContactsQuery()

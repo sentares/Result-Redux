@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { useGetContactsQuery } from 'src/redux/contacts'
-import { useGetGroupsQuery } from 'src/redux/groups'
-import { useAppSelector } from 'src/redux/hooks'
+import { useGetContactsQuery } from 'src/store/contacts'
+import { useGetGroupsQuery } from 'src/store/groups'
+import { useAppSelector } from 'src/store/hooks'
 
 export const useFilteredContacts = () => {
 	const { data: contacts = [] } = useGetContactsQuery()

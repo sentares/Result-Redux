@@ -1,8 +1,8 @@
 import { Formik } from 'formik'
 import { memo } from 'react'
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
-import { useGetGroupsQuery } from 'src/redux/groups'
-import { useAppSelector } from 'src/redux/hooks'
+import { useGetGroupsQuery } from 'src/store/groups'
+import { useAppSelector } from 'src/store/hooks'
 
 export interface FilterFormValues {
 	name: string

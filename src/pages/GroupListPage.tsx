@@ -1,14 +1,21 @@
-import { memo } from 'react'
+import { observer } from 'mobx-react-lite'
+import { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { GroupContactsCard } from 'src/components/GroupContactsCard'
-import { useGetGroupsQuery } from 'src/store/groups'
+import { groupsStore } from 'src/store'
 
-export const GroupListPage = memo(() => {
-	const { data: groupsList = [] } = useGetGroupsQuery()
+export const GroupListPage = observer(() => {
+	const { groups, get } = groupsStore
+
+	useEffect(() => {
+		if (!groups.length) {
+			get()
+		}
+	}, [])
 
 	return (
 		<Row xxl={4}>
-			{groupsList.map(groupContacts => (
+			{groups.map(groupContacts => (
 				<Col key={groupContacts.id}>
 					<GroupContactsCard groupContacts={groupContacts} withLink />
 				</Col>

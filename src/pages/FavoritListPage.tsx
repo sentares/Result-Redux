@@ -1,14 +1,21 @@
-import { memo } from 'react'
+import { observer } from 'mobx-react-lite'
+import { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { ContactCard } from 'src/components/ContactCard'
-import { useGetFavoriteContactsQuery } from 'src/redux/favotire'
+import { favoriteContactsStore } from 'src/store'
 
-export const FavoritListPage = memo(() => {
-	const { data: favoriteContactList = [] } = useGetFavoriteContactsQuery()
+export const FavoritListPage = observer(() => {
+	const { favoriteContacts, get } = favoriteContactsStore
+
+	useEffect(() => {
+		if (!favoriteContacts.length) {
+			get()
+		}
+	}, [])
 
 	return (
 		<Row xxl={4} className='g-4'>
-			{favoriteContactList.map(contact => (
+			{favoriteContacts.map(contact => (
 				<Col key={contact.id}>
 					<ContactCard contact={contact} withLink />
 				</Col>

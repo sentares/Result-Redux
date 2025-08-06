@@ -1,8 +1,7 @@
 import { Formik } from 'formik'
-import { memo } from 'react'
+import { observer } from 'mobx-react-lite'
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
-import { useGetGroupsQuery } from 'src/redux/groups'
-import { useAppSelector } from 'src/redux/hooks'
+import { contactsStore, groupsStore } from 'src/store'
 
 export interface FilterFormValues {
 	name: string
@@ -13,9 +12,9 @@ interface FilterFormProps {
 	onSubmit: (values: FilterFormValues) => void
 }
 
-export const FilterForm = memo<FilterFormProps>(({ onSubmit }) => {
-	const { data: groupsList = [] } = useGetGroupsQuery()
-	const { filter } = useAppSelector(state => state.contacts)
+export const FilterForm = observer<FilterFormProps>(({ onSubmit }) => {
+	const { groups } = groupsStore
+	const { filter } = contactsStore
 
 	return (
 		<Formik initialValues={filter} onSubmit={onSubmit}>
@@ -41,7 +40,7 @@ export const FilterForm = memo<FilterFormProps>(({ onSubmit }) => {
 								onChange={handleChange}
 							>
 								<option value=''>Open this select menu</option>
-								{groupsList.map(groupContacts => (
+								{groups.map(groupContacts => (
 									<option value={groupContacts.id} key={groupContacts.id}>
 										{groupContacts.name}
 									</option>

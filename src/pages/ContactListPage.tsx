@@ -1,19 +1,21 @@
-import { memo } from 'react'
+import { observer } from 'mobx-react-lite'
+import { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
 import { ContactCard } from 'src/components/ContactCard'
 import { FilterForm, FilterFormValues } from 'src/components/FilterForm'
-import { useFilteredContacts } from 'src/helpers/hooks'
-import { setContactsFilter } from 'src/redux/contacts'
+import { contactsStore, groupsStore } from 'src/store'
 
-export const ContactListPage = memo(() => {
-	const dispatch = useDispatch()
-
-	const filteredContacts = useFilteredContacts()
+export const ContactListPage = observer(() => {
+	useEffect(() => {
+		contactsStore.get()
+		groupsStore.get()
+	}, [])
 
 	const onSubmit = (formValue: Partial<FilterFormValues>) => {
-		dispatch(setContactsFilter(formValue))
+		contactsStore.setFilter(formValue)
 	}
+
+	const { filteredContacts } = contactsStore
 
 	return (
 		<Row xxl={1}>

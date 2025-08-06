@@ -1,24 +1,31 @@
-import { FC, useMemo } from 'react'
+import { observer } from 'mobx-react-lite'
+import { FC, useEffect, useMemo } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { ContactCard } from 'src/components/ContactCard'
 import { Empty } from 'src/components/Empty'
-import { useGetContactsQuery } from 'src/redux/contacts'
+import { contactsStore } from 'src/store'
 
-export const ContactPage: FC = () => {
+export const ContactPage: FC = observer(() => {
 	const { contactId } = useParams<{ contactId: string }>()
-	const { data: contactsList = [] } = useGetContactsQuery()
+	const { contacts, get } = contactsStore
 
 	const contact = useMemo(
-		() => contactsList.find(({ id }) => id === contactId),
-		[contactId, contactsList]
+		() => contacts.find(({ id }) => id === contactId),
+		[contactId, contacts]
 	)
+
+	useEffect(() => {
+		if (!contacts.length) {
+			get()
+		}
+	}, [contact])
 
 	return (
 		<Row xxl={3}>
-			<Col className={'mx-auto'}>
+			<Col className='mx-auto'>
 				{contact ? <ContactCard contact={contact} /> : <Empty />}
 			</Col>
 		</Row>
 	)
-}
+})

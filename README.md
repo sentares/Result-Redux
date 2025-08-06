@@ -1,19 +1,17 @@
 # 📇 Contacts App
 
-A simple React-based contact management application that allows users to view, filter, and explore contact details. 
+A simple React-based contact management application that allows users to view, filter, and explore contact details.
 
 ---
 
 ## 🚀 Tech Stack
 
 - **React 18** + **TypeScript**
-- **Redux** for state management
-- **Redux Thunk** for async actions
-- **Redux Persist** for state persistence in localStorage
-- **React Bootstrap** + **Bootstrap 5**
+- **MobX** + **mobx-react-lite** for state management
+- **React Bootstrap** + **Bootstrap 5** for UI components
 - **Formik** for form management
 - **React Router v6** for routing
-- **Sass** for styling
+- **Sass** for custom styling
 - **Axios** for HTTP requests
 
 ---
@@ -38,15 +36,18 @@ A simple React-based contact management application that allows users to view, f
 git clone https://github.com/your-username/contacts.git
 cd contacts
 ```
+
 Install dependencies:
 
 ```bash
 npm install
 ```
+
 Start the development server:
 
 ```bash
 
 npm start
 ```
+
 App will be available at: http://localhost:3000
